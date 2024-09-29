@@ -7,7 +7,7 @@ trigger:
 - main
 
 pool:
-  vmImage: windows-latest
+  vmImage: DefaultAgentPool
 
 steps:
 - task: NodeTool@0
