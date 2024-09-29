@@ -24,3 +24,19 @@ steps:
     PathtoPublish: 'build'
     ArtifactName: 'drop'
     publishLocation: 'Container'
+
+- task: DownloadBuildArtifacts@1
+  inputs:
+    buildType: 'current'
+    downloadType: 'single'
+    artifactName: 'drop'
+    downloadPath: '$(System.ArtifactsDirectory)'
+    cleanDestinationFolder: true
+
+- task: AzureStaticWebApp@0
+  inputs:
+    app_location: 'build'
+    skip_app_build: true
+    skip_api_build: true
+    verbose: true
+    azure_static_web_apps_api_token: '6a52820c7a88b57a38dae5c8361b49fdc507a3750760807ef9d7531a22797f605-e4cc2a6b-a97e-40fd-bb8a-5a635600d9b000f380709'
