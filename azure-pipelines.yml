@@ -9,10 +9,10 @@ trigger:
 pool: DefaultAgentPool
 
 steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '20.x'
-  displayName: 'Install Node.js'
+- script: |
+    echo "Cleaning build sources directory..."
+    rm -rf $(Build.SourcesDirectory)/*
+  displayName: 'Clean build sources directory'
 
 - task: AzureStaticWebApp@0
   inputs:
