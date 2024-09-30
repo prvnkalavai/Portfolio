@@ -9,10 +9,6 @@ trigger:
 pool: DefaultAgentPool
 
 steps:
-- script: |
-    echo "Cleaning build sources directory..."
-    rm -rf $(Build.SourcesDirectory)/*
-  displayName: 'Clean build sources directory'
 
 - task: NodeTool@0
   inputs:
