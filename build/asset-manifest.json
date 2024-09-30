@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/static/css/main.d062decd.css",
+    "main.js": "/static/js/main.3d337a6a.js",
+    "static/js/453.1407b060.chunk.js": "/static/js/453.1407b060.chunk.js",
+    "static/media/Praveen.jpg": "/static/media/Praveen.d53ef410b28684095e88.jpg",
+    "static/media/PraveenKalavai.pdf": "/static/media/PraveenKalavai.c982e73133605f7f481f.pdf",
+    "static/media/az104.png": "/static/media/az104.1d6537e36a2b5d55c500.png",
+    "static/media/pl900.png": "/static/media/pl900.12e529171df50d521e33.png",
+    "static/media/az700.png": "/static/media/az700.46529981dc4e34fac650.png",
+    "static/media/az305.png": "/static/media/az305.f72ae5a45f364419a576.png",
+    "static/media/ai102.png": "/static/media/ai102.e50e2e94f88fc2d64a13.png",
+    "static/media/az400.png": "/static/media/az400.43dac569fa47f259c1b2.png",
+    "static/media/ai900.png": "/static/media/ai900.5c3563ba51e135f5b1de.png",
+    "static/media/az900.png": "/static/media/az900.dd49b3c54249c87368c6.png",
+    "index.html": "/index.html",
+    "main.d062decd.css.map": "/static/css/main.d062decd.css.map",
+    "main.3d337a6a.js.map": "/static/js/main.3d337a6a.js.map",
+    "453.1407b060.chunk.js.map": "/static/js/453.1407b060.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d062decd.css",
+    "static/js/main.3d337a6a.js"
+  ]
+}

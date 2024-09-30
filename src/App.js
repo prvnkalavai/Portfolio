@@ -9,7 +9,7 @@ const App = () => {
   const handleScroll = () => {
     const scrollPosition = window.scrollY;
     const windowHeight = window.innerHeight;
-    const sections = ['home', 'about', 'skills', 'projects', 'certifications'];
+    const sections = ['home', 'about', 'skills', 'projects', 'certifications', 'contact'];
     
     for (let i = sections.length - 1; i >= 0; i--) {
       const section = document.getElementById(sections[i]);

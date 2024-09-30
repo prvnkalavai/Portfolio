@@ -4,6 +4,7 @@ import About from './About';
 import Skills from './Skills';
 import Projects from './Projects';
 import Certifications from './Certifications';
+import Contact from './Contact';
 
 const MainContent = () => {
   return (
@@ -13,6 +14,7 @@ const MainContent = () => {
       <Skills />
       <Projects />
       <Certifications />
+      
     </div>
   );
 };
