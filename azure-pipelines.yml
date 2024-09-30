@@ -14,11 +14,35 @@ steps:
     rm -rf $(Build.SourcesDirectory)/*
   displayName: 'Clean build sources directory'
 
+- task: NodeTool@0
+  inputs:
+    versionSource: 'spec'
+    versionSpec: '20.x'
+  displayName: 'Install Node.js'
+
+- script: |
+    npm install
+    npm run build
+  displayName: 'Install dependencies and build React app'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: 'build'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
+
+- task: DownloadBuildArtifacts@1
+  inputs:
+    buildType: 'current'
+    downloadType: 'single'
+    artifactName: 'drop'
+    downloadPath: '$(System.ArtifactsDirectory)'
+    cleanDestinationFolder: true
+
 - task: AzureStaticWebApp@0
   inputs:
-    app_location: '/'
-    app_build_command: 'npm run build'
+    app_location: 'build'
     output_location: 'build'
-    skip_api_build: true
     verbose: true
     azure_static_web_apps_api_token: '653e9116b5a4df39c05c9ca251370ebcfb871c0d820f557068ff454a0ee5c26b5-2898462e-d2b5-47a3-87e8-31e1d02fec1600f380884'
+  displayName: 'Deploy to Azure Static Web App'
