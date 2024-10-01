@@ -36,7 +36,9 @@ const Skills = () => {
     { name: 'CSS', icon: '/icons/css3.svg' },
     { name: 'JS', icon: '/icons/javascript.svg' },
     { name: 'React', icon: '/icons/react.svg' },
-    { name: 'Power Platform', icon: '/icons/powerplatform.svg' }
+    { name: 'Power Platform', icon: '/icons/powerplatform.svg' },
+    { name: 'Windows', icon: '/icons/windows.svg' },
+    { name: 'Linux', icon: '/icons/linux.svg' }
   ];
 
   return (
