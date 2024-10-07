@@ -23,11 +23,6 @@ steps:
   displayName: 'Install Node.js'
 
 - script: |
-    sudo chown -R $(id -u):$(id -g) $(Build.SourcesDirectory)
-    sudo chmod -R 777 $(Build.SourcesDirectory)
-  displayName: 'Set permissions for working directory'
-
-- script: |
     npm install
     npm run build
   displayName: 'Install dependencies and build React app'
@@ -60,4 +55,9 @@ steps:
     verbose: true
     azure_static_web_apps_api_token: $(AZURE_STATIC_WEB_APPS_API_TOKEN)
   displayName: 'Deploy to Azure Static Web App'
+
+- script: |
+    sudo chown -R $(id -u):$(id -g) $(Build.SourcesDirectory)
+    sudo chmod -R 777 $(Build.SourcesDirectory)
+  displayName: 'Set permissions for working directory'
 
