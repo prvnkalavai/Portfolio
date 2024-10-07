@@ -10,7 +10,11 @@ const Contact = () => {
     requestResume: false
   });
 
-  const [error, setError] = useState('');
+  const [status, setStatus] = useState({
+    submitting: false,
+    success: false,
+    error: null
+  });
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -22,10 +26,19 @@ const Contact = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    setStatus({ submitting: true, success: false, error: null });
+
+    const apiUrl = process.env.NODE_ENV === 'production'
+      ? '/api/contact'
+      : 'http://localhost:3001/api/contact';
+
     try {
-      const response = await axios.post('http://localhost:3001/api/contact', formData);
-      alert('Thank you for your message. I will get back to you shortly.');
+      const response = await axios.post(apiUrl, formData); 
+      setStatus({
+        submitting: false,
+        success: true,
+        error: null
+      });
       setFormData({
         name: '',
         company: '',
@@ -35,26 +48,20 @@ const Contact = () => {
       });
     } catch (error) {
       console.error('Error submitting form:', error);
-      if (error.response && error.response.data && error.response.data.message) {
-        setError(error.response.data.message);
-      } else {
-        setError('An error occurred while submitting the form. Please try again later.');
-      }
+      setStatus({
+        submitting: false,
+        success: false,
+        error: error.response?.data?.message || 'An error occurred while submitting the form. Please try again later.'
+      });
     }
   };
-
-  // This function would be replaced with actual email sending logic
-  //const sendEmail = async (data) => {
-    // Simulate API call
-    //await new Promise(resolve => setTimeout(resolve, 1000));
-    //console.log('Email sent:', data);
-  //};
 
   return (
     <section id="contact" className="min-h-screen flex items-center justify-center bg-white-100">
       <div className="container mx-auto px-6 py-8">
         <h2 className="text-3xl font-bold mb-8 text-center">Contact Me</h2>
-        {error && <p className="text-red-500 mb-4">{error}</p>}
+        {status.error && <p className="text-red-500 mb-4">{status.error}</p>}
+        {status.success && <p className="text-green-500 mb-4">Thank you for your message. I will get back to you shortly.</p>}
         <form onSubmit={handleSubmit} className="max-w-lg mx-auto">
           <div className="mb-4">
             <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">Name</label>
@@ -115,11 +122,12 @@ const Contact = () => {
             </label>
           </div>
           <div className="flex items-center justify-between">
-            <button
+          <button
               type="submit"
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              disabled={status.submitting}
+              className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${status.submitting ? 'opacity-50 cursor-not-allowed' : ''}`}
             >
-              Send Message
+              {status.submitting ? 'Sending...' : 'Send Message'}
             </button>
           </div>
         </form>

@@ -14,7 +14,7 @@ const MainContent = () => {
       <Skills />
       <Projects />
       <Certifications />
-      
+      <Contact />
     </div>
   );
 };

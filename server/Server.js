@@ -1,43 +1,32 @@
 require('dotenv').config();
 const express = require('express');
-const nodemailer = require('nodemailer');
 const cors = require('cors');
+const { EmailClient } = require("@azure/communication-email");
 
+console.log('Environment variables:');
+console.log('COMMUNICATION_SERVICES_CONNECTION_STRING:', process.env.COMMUNICATION_SERVICES_CONNECTION_STRING);
+console.log('SENDER_EMAIL_ADDRESS:', process.env.SENDER_EMAIL_ADDRESS);
+console.log('YOUR_EMAIL:', process.env.MY_EMAIL);
 
 const app = express();
 
 // Middleware
 app.use(cors({
-    origin: 'http://localhost:3000' // Allow requests from your React app
-  }));
+  origin: ['http://localhost:3000', 'http://localhost:3002'], // Allow requests from both origins
+  methods: ['GET', 'POST'], // Specify the allowed HTTP methods
+  allowedHeaders: ['Content-Type', 'Authorization'] // Specify the allowed headers
+}));
 app.use(express.json());
 
-// Log SMTP configuration
-console.log('SMTP Configuration:');
-console.log('Host:', process.env.EMAIL_HOST);
-console.log('Port:', process.env.EMAIL_PORT);
-console.log('Secure:', process.env.EMAIL_SECURE);
-console.log('User:', process.env.EMAIL_USER);
+// Initialize Azure Communication Services Email Client
+const connectionString = process.env.COMMUNICATION_SERVICES_CONNECTION_STRING;
+console.log('Connection string:', connectionString);
 
-// Create a transporter using SMTP
-let transporter = nodemailer.createTransport({
-  host: process.env.EMAIL_HOST,
-  port: process.env.EMAIL_PORT,
-  secure: process.env.EMAIL_SECURE === 'true', // true for 465, false for other ports
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  },
-});
-
-// Verify SMTP connection
-transporter.verify(function(error, success) {
-    if (error) {
-      console.log('SMTP connection error:', error);
-    } else {
-      console.log('SMTP connection successful');
-    }
-  });
+if (!connectionString) {
+  console.error('Connection string is undefined. Please check your .env file.');
+  process.exit(1);
+}
+const client = new EmailClient(connectionString);
 
 // API endpoint for form submission
 app.post('/api/contact', async (req, res) => {
@@ -60,37 +49,60 @@ app.post('/api/contact', async (req, res) => {
 async function sendEmailToYourself(data) {
   const { name, company, email, message, requestResume } = data;
   
-  let mailOptions = {
-    from: process.env.EMAIL_USER,
-    to: process.env.YOUR_EMAIL,
-    subject: `New Contact Form Submission${requestResume ? ' - Resume Requested' : ''}`,
-    text: `
-      Name: ${name}
-      Company: ${company}
-      Email: ${email}
-      Message: ${message}
-      Resume Requested: ${requestResume ? 'Yes' : 'No'}
-    `,
+  const emailMessage = {
+    senderAddress: process.env.SENDER_EMAIL_ADDRESS,
+    content: {
+      subject: `New Contact Form Submission${requestResume ? ' - Resume Requested' : ''}`,
+      plainText: `
+        Name: ${name}
+        Company: ${company}
+        Email: ${email}
+        Message: ${message}
+        Resume Requested: ${requestResume ? 'Yes' : 'No'}
+      `,
+      html: `
+        <h2>New Contact Form Submission</h2>
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Company:</strong> ${company}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Message:</strong> ${message}</p>
+        <p><strong>Resume Requested:</strong> ${requestResume ? 'Yes' : 'No'}</p>
+      `,
+    },
+    recipients: {
+      to: [{ address: process.env.MY_EMAIL }],
+    },
   };
 
-  await transporter.sendMail(mailOptions);
+  const poller = await client.beginSend(emailMessage);
+  await poller.pollUntilDone();
 }
 
 async function sendAutomatedResponse(recruiterEmail) {
-  let mailOptions = {
-    from: process.env.EMAIL_USER,
-    to: recruiterEmail,
-    subject: 'Thank you for your message',
-    text: `
-      Thank you for reaching out. I have received your message and will review it shortly.
-      I'll get back to you as soon as possible.
+  const emailMessage = {
+    senderAddress: process.env.SENDER_EMAIL_ADDRESS,
+    content: {
+      subject: 'Thank you for your message',
+      plainText: `
+        Thank you for reaching out. I have received your message and will review it shortly.
+        I'll get back to you as soon as possible.
 
-      Best regards,
-      [Your Name]
-    `,
+        Best regards,
+        Praveen Kalavai
+      `,
+      html: `
+        <p>Thank you for reaching out. I have received your message and will review it shortly.</p>
+        <p>I'll get back to you as soon as possible.</p>
+        <p>Best regards,<br>Praveen Kalavai</p>
+      `,
+    },
+    recipients: {
+      to: [{ address: recruiterEmail }],
+    },
   };
 
-  await transporter.sendMail(mailOptions);
+  const poller = await client.beginSend(emailMessage);
+  await poller.pollUntilDone();
 }
 
 const PORT = process.env.PORT || 3001;

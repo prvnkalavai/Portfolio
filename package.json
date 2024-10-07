@@ -1,8 +1,9 @@
 {
   "name": "portfolio",
   "version": "0.1.0",
-    "private": true,
+  "private": true,
   "dependencies": {
+    "@azure/communication-email": "^1.0.0",
     "@tailwindcss/forms": "^0.5.9",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
