@@ -8,12 +8,18 @@ trigger:
 
 pool: DefaultAgentPool
 
+variables:
+  node.version: '20.x'
+  app.location: '/'
+  api.location: 'api'
+  output.location: 'build'
+
 steps:
 
 - task: NodeTool@0
   inputs:
     versionSource: 'spec'
-    versionSpec: '20.x'
+    versionSpec: '$(node.version)'
   displayName: 'Install Node.js'
 
 - script: |
@@ -21,24 +27,31 @@ steps:
     npm run build
   displayName: 'Install dependencies and build React app'
 
+- script: |
+    cd $(api.location)
+    npm install
+  displayName: 'Install API dependencies'
+
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    replaceExistingArchive: true
+
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: 'build'
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
     publishLocation: 'Container'
 
-- task: DownloadBuildArtifacts@1
-  inputs:
-    buildType: 'current'
-    downloadType: 'single'
-    artifactName: 'drop'
-    downloadPath: '$(System.ArtifactsDirectory)'
-    cleanDestinationFolder: true
-
 - task: AzureStaticWebApp@0
   inputs:
-    app_location: 'build'
-    output_location: 'build'
+    app_location: '$(app.location)'
+    api_location: '$(api.location)'
+    output_location: '$(output.location)'
     verbose: true
-    azure_static_web_apps_api_token: '6ab11309374127e35bde567dd5f203e62d23343bd2942ebc043f866f09a9301f5-8ffa116f-20f4-432d-aec2-eb07d31d165100f381700'
+    azure_static_web_apps_api_token: $(AZURE_STATIC_WEB_APPS_API_TOKEN)
   displayName: 'Deploy to Azure Static Web App'
+
