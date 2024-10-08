@@ -1,8 +1,8 @@
 {
   "routes": [
     {
-      "route": "/api/*",
-      "methods": ["GET", "POST"]
+      "route": "/api/contact", 
+      "methods": ["GET","POST"]
     },
     {
       "route": "/static/*",
