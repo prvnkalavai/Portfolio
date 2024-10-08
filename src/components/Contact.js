@@ -27,10 +27,13 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus({ submitting: true, success: false, error: null });
+    console.log('NODE_ENV:', process.env.NODE_ENV);
 
     const apiUrl = process.env.NODE_ENV === 'production'
       ? '/api/contact'
       : 'http://localhost:3001/api/contact';
+
+    console.log('API URL:', apiUrl);
 
     try {
       const response = await axios.post(apiUrl, formData); 

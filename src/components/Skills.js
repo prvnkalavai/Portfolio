@@ -41,6 +41,15 @@ const Skills = () => {
     { name: 'Linux', icon: 'linux.svg' }
   ];
 
+  const getIconPath = (iconName) => {
+    try {
+      return require(`../icons/${iconName}`);
+    } catch (err) {
+      console.error(`Error loading icon: ${iconName}`, err);
+      return '';
+    }
+  };
+
   return (
     <section id="skills" className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="container mx-auto px-6 py-8">
@@ -48,7 +57,11 @@ const Skills = () => {
         <div className="grid grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-6">
           {skills.map((skill) => (
             <div key={skill.name} className="flex flex-col items-center p-4 rounded-lg transition-all duration-300 hover:shadow-lg">
-              <img src={`${process.env.PUBLIC_URL}/icons/${skill.icon}`} alt={skill.name} className="w-16 h-16 mb-2" />
+              <img 
+                src={getIconPath(skill.icon)} 
+                alt={skill.name} 
+                className="w-16 h-16 mb-2" 
+              />
               <p className="text-center">{skill.name}</p>
             </div>
           ))}
