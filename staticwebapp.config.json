@@ -1,8 +1,9 @@
 {
   "routes": [
     {
-      "route": "/api/*", 
-      "methods": ["POST"]
+      "route": "/api/contact", 
+      "methods": ["POST"],
+      "allowedRoles": ["anonymous"]
     },
     {
       "route": "/static/*",

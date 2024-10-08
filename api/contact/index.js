@@ -2,6 +2,22 @@ const { EmailClient } = require("@azure/communication-email");
 
 module.exports = async function (context, req) {
     context.log('JavaScript HTTP trigger function processed a request.');
+    // // Add CORS headers
+    // context.res = {
+    //     headers: {
+    //         "Content-Type": "application/json",
+    //         "Access-Control-Allow-Origin": "http://localhost:7072",
+    //         "Access-Control-Allow-Methods": "POST, OPTIONS",
+    //         "Access-Control-Allow-Headers": "Content-Type"
+    //     }
+    // };
+
+    // // Handle OPTIONS request (preflight)
+    // if (req.method === 'OPTIONS') {
+    //     context.res.status = 204;
+    //     return;
+    // }
+    
     if (req.method !== 'POST') {
         context.res = {
             status: 405,
@@ -27,10 +43,8 @@ module.exports = async function (context, req) {
         };
     } catch (error) {
         context.log.error('Error:', error);
-        context.res = {
-            status: 500,
-            body: { message: 'An error occurred while submitting the form' }
-        };
+        context.res.status = 500;
+        context.res.body = { message: 'An error occurred while submitting the form' };
     }
 };
 
