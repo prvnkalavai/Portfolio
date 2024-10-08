@@ -5,6 +5,12 @@
       "methods": ["GET", "POST"]
     },
     {
+      "route": "/index.html",
+      "headers": {
+        "cache-control": "no-cache"
+      }
+    },
+    {
       "route": "/*",
       "rewrite": "/index.html"
     }
