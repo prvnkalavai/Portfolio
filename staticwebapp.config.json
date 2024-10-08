@@ -1,12 +1,29 @@
 {
-    "routes": [
-      {
-        "route": "/api/*",
-        "methods": ["GET", "POST"]
-      },
-      {
-        "route": "/*",
-        "rewrite": "/index.html"
+  "routes": [
+    {
+      "route": "/static/*",
+      "headers": {
+        "cache-control": "must-revalidate, max-age=15770000"
       }
-    ]
+    },
+    {
+      "route": "/index.html",
+      "headers": {
+        "cache-control": "no-cache"
+      }
+    },
+    {
+      "route": "/*",
+      "rewrite": "/index.html"
+    }
+  ],
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": ["/static/*", "/manifest.json"]
+  },
+  "mimeTypes": {
+    ".json": "text/json",
+    ".css": "text/css",
+    ".js": "application/javascript"
   }
+}
