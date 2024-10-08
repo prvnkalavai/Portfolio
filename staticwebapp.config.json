@@ -20,6 +20,7 @@
     "exclude": ["/images/*.{png,jpg,gif}", "/css/*", "/api/*", "/icons/*"]
   },
   "mimeTypes": {
+    ".html": "text/html",
     ".json": "text/json",
     ".css": "text/css",
     ".js": "application/javascript",
