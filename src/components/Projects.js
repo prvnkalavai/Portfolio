@@ -50,7 +50,7 @@ const Projects = () => {
       title: 'Portfolio Website',
       description: [
         'Developed the portfolio website using Node.js, npm, React and Tailwind CSS',
-        'Hosted the website on Azure using Static Web Apps and Azure DNS',
+        'Hosted the website on Azure using Static Web Apps, CloudFlare and Azure DNS',
         'Used Entra ID, Azure Communication Services for SMTP, and Azure DevOps for CI/CD'
       ]
     },

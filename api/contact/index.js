@@ -2,7 +2,13 @@ const { EmailClient } = require("@azure/communication-email");
 
 module.exports = async function (context, req) {
     context.log('JavaScript HTTP trigger function processed a request.');
-
+    if (req.method !== 'POST') {
+        context.res = {
+            status: 405,
+            body: { message: 'Method not allowed' }
+        };
+        return;
+    }
     const connectionString = process.env.COMMUNICATION_SERVICES_CONNECTION_STRING;
     const client = new EmailClient(connectionString);
 
@@ -70,12 +76,12 @@ async function sendAutomatedResponse(recruiterEmail, client) {
             I'll get back to you as soon as possible.
     
             Best regards,
-            Praveen Kalavai
+            PK
           `,
           html: `
             <p>Thank you for reaching out. I have received your message and will review it shortly.</p>
             <p>I'll get back to you as soon as possible.</p>
-            <p>Best regards,<br>Praveen Kalavai</p>
+            <p>Best regards,<br>PK</p>
           `,
         },
         recipients: {

@@ -51,7 +51,7 @@ const Contact = () => {
       setStatus({
         submitting: false,
         success: false,
-        error: error.response?.data?.message || 'An error occurred while submitting the form. Please try again later.'
+        error: error.response?.data || 'An error occurred while submitting the form. Please try again later.'
       });
     }
   };
