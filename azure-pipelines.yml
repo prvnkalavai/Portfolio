@@ -11,7 +11,7 @@ pool: DefaultAgentPool
 variables:
   node.version: '20.x'
   app.location: '/'
-  api.location: 'api/contact'
+  api.location: 'api'
   output.location: 'build'
 
 steps:
