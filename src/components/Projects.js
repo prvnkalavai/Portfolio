@@ -49,11 +49,20 @@ const Projects = () => {
     {
       title: 'Portfolio Website',
       description: [
-        'Developed the portfolio website using Node.js, npm, React and Tailwind CSS',
+        'Developed the portfolio website using Node.js, npm, React and CSS',
         'Hosted the website on Azure using Static Web Apps, CloudFlare and Azure DNS',
-        'Used Entra ID, Azure Communication Services for SMTP, and Azure DevOps for CI/CD'
+        'Used Entra ID, Azure Functions, Azure Communication Services for SMTP, and Azure DevOps for CI/CD'
       ]
     },
+    {
+      title: 'Story Teller Web Application',
+      description: [
+        'Developed a bedtime story teller application using Node.js, npm, React, CSS, Azure Functions, Open AI API, Gemini API and Replicate API',
+        'Custom trained a text-to-image model based on Flux AI Image generation model on Replicate',
+        'Hosted the website on Azure as a Static Web Apps with Azure Function serving a managed backend API',
+        'Used Cloudflare and Azure DNS for domain services and Azure DevOps for CI/CD'
+      ]
+    }
   ];
 
   return (
