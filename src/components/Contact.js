@@ -41,6 +41,7 @@ const Contact = () => {
           'Content-Type': 'application/json',
         },
       });
+      console.log('Form submitted successfully:', response.data);
       setStatus({
         submitting: false,
         success: true,
