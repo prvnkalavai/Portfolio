@@ -1,7 +1,9 @@
 import React from 'react';
+import portfolioApp from '../assets/portfolioapp.png'; 
+import storyfairyApp from '../assets/storyfairyapp.png'; 
 
 const Projects = () => {
-  const projects = [
+  const clientProjects = [
     {
       title: 'Build/Release Engineer',
       description: [
@@ -45,45 +47,75 @@ const Projects = () => {
         'Design Patterns: Implemented MVVM and Façade design patterns.',
         'Data Access Optimization: Optimized data access layer performance by using LINQ for executing stored procedures on SQL Server.'
       ]
-    },
+    }
+  ];
+  const personalProjects = [
     {
-      title: 'Portfolio Website',
+      title: 'Personal Portfolio',
+      image: portfolioApp,
       description: [
-        'Developed the portfolio website using Azure Functions, React JS, Node.js, npm, HTML, and CSS',
+        'My personal portfolio website built using Azure Functions, React JS, Node.js, npm, HTML, and CSS, showcasing my skills and projects.',
         'Hosted the website on Azure using Static Web Apps, CloudFlare and Azure DNS',
         'Used Entra ID, Azure Functions, Azure Communication Services for SMTP, and Github Actions/Azure DevOps for CI/CD'
       ]
+      //,tags: ['React', 'Tailwind CSS', 'Azure Functions', 'Azure Static Web Apps', 'Azure Communication Services', 'Github Actions/Azure DevOps']
     },
     {
-      title: 'StoryTeller Web Application',
+      title: 'Storyfairy - AI Generated bedtime Storyteller',
+      image: storyfairyApp,
       description: [
-        'Developed an AI Generated bedtime Storyteller application using Python, Azure Functions, Open AI , Gemini, Replicate, React Typescript, NodeJs and npm',
-        'Custom trained a text-to-image model based on Flux AI Image generation model on Replicate',
+        'An AI powered bedtime Storyteller application with custom story & image generation built using Python, Azure Functions, Open AI, Gemini, Replicate, and React Typescript',
         'Hosted the website on Azure as a Static Web Apps with Azure Function serving a managed backend API',
         'Used Cloudflare and Azure DNS for domain services and Github Actions/Azure DevOps for CI/CD',
         'Used Azure Storage/Blob Containers for storing and retrieving the AI Generated stories and images generated'
       ]
+      //,tags: ['Python', 'Azure Functions', 'OpenAI', 'React', 'Replicate', 'Azure Static Web Apps', 'Azure Storage/Blob Containers', 'Github Actions/Azure DevOps']
     }
   ];
 
-  return (
-    <section id="projects" className="min-h-screen flex items-center justify-center bg-white-100">
-      <div className="container mx-auto px-6 py-8">
-        <h2 className="text-3xl font-bold mb-8 text-center">Projects</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
-            <div key={index} className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-xl font-semibold mb-4">{project.title}</h3>
-              <ul className="list-disc pl-5 text-justify">
-                {project.description.map((item, itemIndex) => (
-                  <li key={itemIndex} className="mb-2">{item}</li>
+  const renderProject = (project, index) => {
+    return (
+        <div key={index} className="bg-white p-6 rounded-lg shadow-md">
+          {project.image && <img src={project.image} alt={project.title} className="w-full h-48 object-cover mb-4 rounded-lg" />}
+          <h3 className="text-xl font-semibold mb-4">{project.title}</h3>
+          {Array.isArray(project.description) ? ( 
+            <ul className="list-disc pl-5 text-justify">
+              {project.description.map((item, itemIndex) => (
+                <li key={itemIndex} className="mb-2">{item}</li>
+              ))}
+            </ul>
+          ) : (
+            <p className="text-gray-700 mb-4">{project.description}</p>
+          )}
+          {project.tags && (
+              <div className="flex flex-wrap">
+                {project.tags.map((tag) => (
+                    <span key={tag} className="bg-purple-500 text-white px-2 py-1 rounded-full mr-2 text-sm mb-2">{tag}</span>
                 ))}
-              </ul>
-            </div>
-          ))}
+              </div>
+          )}
         </div>
-      </div>
-    </section>
+    );
+  };
+
+
+  return (
+      <section id="projects" className="min-h-screen py-12 bg-white-100"> {/* Section background color changed */}
+        <div className="container mx-auto px-6">
+          <h2 className="text-3xl font-bold mb-8 text-center">Projects</h2>
+
+          {/* Client Projects Section */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+            {clientProjects.map(renderProject)}
+          </div>
+
+          {/* Personal Projects Section */}
+          <h2 className="text-3xl font-bold mb-8 text-center">Personal Projects</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {personalProjects.map(renderProject)}
+          </div>
+        </div>
+      </section>
   );
 };
 
