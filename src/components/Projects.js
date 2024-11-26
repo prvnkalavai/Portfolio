@@ -1,6 +1,6 @@
 import React from 'react';
 import portfolioApp from '../assets/portfolioapp.png'; 
-import storyfairyApp from '../assets/storyfairyapp.png'; 
+import storyfairyApp from '../assets/storyfairycollage.jpg'; 
 
 const Projects = () => {
   const clientProjects = [
@@ -67,7 +67,8 @@ const Projects = () => {
         'An AI powered bedtime Storyteller application with custom story & image generation built using Python, Azure Functions, Open AI, Gemini, Replicate, and React Typescript',
         'Hosted the website on Azure as a Static Web Apps with Azure Function serving a managed backend API',
         'Used Cloudflare and Azure DNS for domain services and Github Actions/Azure DevOps for CI/CD',
-        'Used Azure Storage/Blob Containers for storing and retrieving the AI Generated stories and images generated'
+        'Utilized Azure Storage/Blob Containers, and Azure CosmosDB for backend data storage and retrieval',
+        'Implemented Azure AD B2C for custom user management and authentication and Azure Key Vault for secret management'
       ]
       //,tags: ['Python', 'Azure Functions', 'OpenAI', 'React', 'Replicate', 'Azure Static Web Apps', 'Azure Storage/Blob Containers', 'Github Actions/Azure DevOps']
     }
