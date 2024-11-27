@@ -53,6 +53,7 @@ const Projects = () => {
     {
       title: 'Personal Portfolio',
       image: portfolioApp,
+      url: 'https://www.praveenkalavai.com',
       description: [
         'My personal portfolio website built using Azure Functions, React JS, Node.js, npm, HTML, and CSS, showcasing my skills and projects.',
         'Hosted the website on Azure using Static Web Apps, CloudFlare and Azure DNS',
@@ -63,6 +64,7 @@ const Projects = () => {
     {
       title: 'Storyfairy - AI Generated bedtime Storyteller',
       image: storyfairyApp,
+      url: 'https://www.storyfairy.app',
       description: [
         'An AI powered bedtime Storyteller application with custom story & image generation built using Python, Azure Functions, Open AI, Gemini, Replicate, and React Typescript',
         'Hosted the website on Azure as a Static Web Apps with Azure Function serving a managed backend API',
@@ -75,9 +77,21 @@ const Projects = () => {
   ];
 
   const renderProject = (project, index) => {
+    const handleImageClick = () => {
+      if (project.url) {
+        window.open(project.url, '_blank', 'noopener,noreferrer');
+      }
+    };
     return (
         <div key={index} className="bg-white p-6 rounded-lg shadow-md">
-          {project.image && <img src={project.image} alt={project.title} className="w-full h-48 object-cover mb-4 rounded-lg" />}
+          {project.image && (
+          <img 
+            src={project.image} 
+            alt={project.title} 
+            className={`w-full h-48 object-cover mb-4 rounded-lg ${project.url ? 'cursor-pointer hover:opacity-75 transition-opacity' : ''}`}
+            onClick={handleImageClick}
+          />
+          )}
           <h3 className="text-xl font-semibold mb-4">{project.title}</h3>
           {Array.isArray(project.description) ? ( 
             <ul className="list-disc pl-5 text-justify">
