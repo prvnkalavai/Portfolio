@@ -38,7 +38,8 @@ const Skills = () => {
     { name: 'React', icon: 'react.svg' },
     { name: 'Power Platform', icon: 'powerplatform.svg' },
     { name: 'Windows', icon: 'windows.svg' },
-    { name: 'Linux', icon: 'linux.svg' }
+    { name: 'Linux', icon: 'linux.svg' },
+    { name: 'Servicenow', icon: 'snow.png' }
   ];
 
   const getIconPath = (iconName) => {

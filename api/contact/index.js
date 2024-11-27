@@ -90,12 +90,12 @@ async function sendAutomatedResponse(recruiterEmail, client) {
             I'll get back to you as soon as possible.
     
             Best regards,
-            PK
+            Praveen Kalavai
           `,
           html: `
             <p>Thank you for reaching out. I have received your message and will review it shortly.</p>
             <p>I'll get back to you as soon as possible.</p>
-            <p>Best regards,<br>PK</p>
+            <p>Best regards,<br>Praveen Kalavai</p>
           `,
         },
         recipients: {
