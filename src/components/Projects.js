@@ -73,6 +73,14 @@ const Projects = () => {
         'Implemented Azure AD B2C for custom user management and authentication and Azure Key Vault for secret management'
       ]
       //,tags: ['Python', 'Azure Functions', 'OpenAI', 'React', 'Replicate', 'Azure Static Web Apps', 'Azure Storage/Blob Containers', 'Github Actions/Azure DevOps']
+    },
+    {
+      title: 'Gemini Multimodal Live API Demonstrator (Flutter)',
+      description: [
+        'Developed a cross-platform Flutter application to interact with the Google Gemini Multimodal Live API',
+        'The project includes real-time audio capture on mobile devices and the web, with platform-specific implementations using flutter_sound and the record library.',
+        'Features include: live volume visualization, base64 encoding of audio data, and streaming media chunks to the Gemini API via websockets, interaction with Gemini API via live video streaming and screen sharing, and provides a template for future cross platform multimodal applications.'
+      ]
     }
   ];
 
