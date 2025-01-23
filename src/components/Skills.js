@@ -14,7 +14,6 @@ const Skills = () => {
     { name: '.NET', icon: 'dot-net.svg' },
     { name: '.NET Core', icon: 'dotnetcore.svg' },
     { name: 'Dynatrace', icon: 'dynatrace.svg' },
-    { name: 'Git', icon: 'git.svg' },
     { name: 'Github', icon: 'github.svg' },
     { name: 'Docker', icon: 'docker.svg' },
     { name: 'Kubernetes', icon: 'kubernetes.svg' },
@@ -37,8 +36,8 @@ const Skills = () => {
     { name: 'JS', icon: 'javascript.svg' },
     { name: 'React', icon: 'react.svg' },
     { name: 'Power Platform', icon: 'powerplatform.svg' },
-    { name: 'Windows', icon: 'windows.svg' },
-    { name: 'Linux', icon: 'linux.svg' },
+    { name: 'Windows Administration', icon: 'windows.svg' },
+    { name: 'Linux Administration', icon: 'linux.svg' },
     { name: 'Servicenow', icon: 'snow.svg' }
   ];
 
